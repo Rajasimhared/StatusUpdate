@@ -1,5 +1,6 @@
 "use strict";
 const { DEFAULT_CHANNEL_ID } = require("../../utils/constants");
+const { crud } = require("../mongodb");
 
 const handlSubmit = async ({ ack, body, view, client }) => {
   await ack();
@@ -58,10 +59,19 @@ const handlSubmit = async ({ ack, body, view, client }) => {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Kudos* \n${submittedValues["update_yesterday"].value}`,
+          text: `*Kudos to* \n<@${submittedValues["multi_users_select-action"].selected_users}>`,
         },
       },
     ],
+  });
+
+  await crud.addUpdate({
+    update_yesterday: submittedValues["update_today"].value,
+    update_today: submittedValues["update_today"].value,
+    update_blockers: submittedValues["update_blockers"].value,
+    update_kudos: submittedValues["multi_users_select-action"].selected_users,
+    update_date: new Date(),
+    userId: body.user.id,
   });
 
   console.log("Submitted Values:", submittedValues);

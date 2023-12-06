@@ -70,7 +70,7 @@ module.exports = (body) => {
         },
         label: {
           type: "plain_text",
-          text: "Give Kudos",
+          text: "Give Kudos to",
           emoji: true,
         },
         optional: true,

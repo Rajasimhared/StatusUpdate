@@ -45,10 +45,11 @@ module.exports = {
           type: "divider",
         },
         {
-          type: "section",
+          type: "header",
           text: {
-            type: "mrkdwn",
+            type: "plain_text",
             text: "Past Updates:",
+            emoji: true,
           },
         },
       ],

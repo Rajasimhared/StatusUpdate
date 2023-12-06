@@ -2,7 +2,7 @@
 const updateModalView = require(`../../views/updateModalView`);
 
 const shareUpdate = async ({ client, body, ack }) => {
-  console.log(body);
+  // console.log(body);
   try {
     await ack();
 

@@ -2,6 +2,7 @@
 
 const { app } = require(`./app`);
 require(`./controllers`);
+
 require("dotenv").config();
 
 const exit = (err) => {
