@@ -37,7 +37,7 @@ module.exports = {
               },
               value: "share_update",
               action_id: "share_update",
-              url: `slack://app?team=${body.team_id}&id=${body.api_app_id}&tab=messages`,
+              // url: `slack://app?team=${body.team_id}&id=${body.api_app_id}&tab=messages`,
             },
           ],
         },

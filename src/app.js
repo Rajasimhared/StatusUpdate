@@ -2,7 +2,7 @@
 
 // Require the Bolt for JavaScript package (github.com/slackapi/bolt)
 const { App } = require("@slack/bolt");
-const { events, actions, commands, shortcuts } = require("./controllers");
+const { slack } = require("./controllers");
 
 require("dotenv").config();
 
@@ -12,16 +12,19 @@ const app = new App({
 });
 
 // Events
-app.event("app_home_opened", events.homeOpen);
+app.event("app_home_opened", slack.events.homeOpen);
 
 // Actions
-app.action("share_update", actions.shareUpdate);
-app.action("default_action", async ({ ack }) => await ack());
+app.action("share_update", slack.actions.shareUpdate);
+app.action("default_action", slack.actions.acknowledge);
 
 // Commands
-app.command("/update", commands.startFlow);
+app.command("/update", slack.commands.startFlow);
 
 // Messages
-app.message("update", commands.startFlow);
+app.message("update", slack.commands.startFlow);
+
+// Views
+app.view("update_submit", slack.views.handlSubmit);
 
 module.exports = { app };
