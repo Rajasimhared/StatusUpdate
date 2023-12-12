@@ -1,11 +1,11 @@
 "use strict";
-const { crud } = require("../mongodb");
+const { getUpdates } = require("../../services/crud");
 
 const homeView = require(`../../views/homeView`);
 
 const homeOpen = async ({ event, client, context, body }) => {
   try {
-    let updates = await crud.getUpdates(event.user);
+    let updates = await getUpdates(event.user);
     let blocks = [];
     for (let update of updates) {
       let block = [

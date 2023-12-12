@@ -1,6 +1,6 @@
 "use strict";
 const { DEFAULT_CHANNEL_ID } = require("../../utils/constants");
-const { crud } = require("../mongodb");
+const { addUpdate } = require("../../services/crud");
 
 const handlSubmit = async ({ ack, body, view, client }) => {
   await ack();
@@ -65,7 +65,7 @@ const handlSubmit = async ({ ack, body, view, client }) => {
     ],
   });
 
-  await crud.addUpdate({
+  await addUpdate({
     update_yesterday: submittedValues["update_today"].value,
     update_today: submittedValues["update_today"].value,
     update_blockers: submittedValues["update_blockers"].value,
