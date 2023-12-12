@@ -52,5 +52,5 @@ process.on("SIGTERM", shutdownOnSIGTERM);
   //const appDataSource = await DataSourceSingleton.getInstance();
   //await app.start(config.SLACK.SLACK_APP_TOKEN ? "" : config.APP.PORT || 3000);
   await app.start(process.env.PORT || 3000);
-  console.log(`⚡️ \t Bot is running on ${process.env.PORT}!`);
+  console.log(`⚡️ \t Bot is running on port ${process.env.PORT}!`);
 })();
