@@ -27,4 +27,10 @@ app.message("update", slack.commands.startFlow);
 // Views
 app.view("update_submit", slack.views.handlSubmit);
 
+// A more generic, global error handler
+app.error(async ({ error, logger, context, body }) => {
+  // Check the details of the error to handle cases where you should retry sending a message or stop the app
+  console.error(error);
+});
+
 module.exports = { app };
