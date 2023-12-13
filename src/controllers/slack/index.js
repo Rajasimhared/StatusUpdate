@@ -7,4 +7,5 @@ module.exports = {
   commands: require(`./commands`),
   messages: require(`./messages`),
   views: require(`./views`),
+  cron: require(`./cron`),
 };

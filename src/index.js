@@ -2,69 +2,18 @@
 
 const { app } = require(`./app`);
 const { getActiveUsers } = require("./services/crud");
-const axios = require("axios");
 
-require(`./controllers`);
+const { slack } = require(`./controllers`);
+const { CRON_TIMING } = require("./utils/constants");
+
 require("dotenv").config();
 
 const { CronJob } = require("cron");
 
-const job = new CronJob("* * * * *", async function () {
+const job = new CronJob(CRON_TIMING, async function () {
   console.log("entered cron");
   const users = await getActiveUsers();
-  console.log(users);
-  for (let userId = 0; userId < users.length; userId++) {
-    const response = await axios.post(
-      "https://slack.com/api/chat.postMessage",
-      {
-        channel: users[userId],
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "*Time for status update!* :tada:",
-            },
-          },
-          {
-            type: "divider",
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "• What have you done yesterday?\n• Plan for today?\n• Any Blockers?\n• Give Kudos",
-            },
-          },
-          {
-            type: "actions",
-            elements: [
-              {
-                type: "button",
-                text: {
-                  type: "plain_text",
-                  text: "Share Update",
-                  emoji: true,
-                },
-                value: "share_update",
-                action_id: "share_update",
-                // url: `slack://app?team=${body.team_id}&id=${body.api_app_id}&tab=messages`,
-              },
-            ],
-          },
-          {
-            type: "divider",
-          },
-        ],
-      },
-      {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${process.env.SLACK_BOT_TOKEN}`,
-        },
-      }
-    );
-  }
+  await slack.cron.cronUpdates(users);
 });
 
 job.start();
